@@ -22,7 +22,7 @@ def get_stock_data(ticker, days=90):
     end_date = datetime.now()
     start_date = end_date - timedelta(days=days)
     stock_data = yf.download(ticker, start=start_date, end=end_date)
-    if stock_data.empty():
+    if stock_data.empty:
         return f"No stock data found for {ticker}"
     return stock_data
 
