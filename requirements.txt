@@ -2,3 +2,4 @@ anthropic==0.34.1
 yfinance==0.2.43
 duckduckgo_search==6.2.11
 rich==13.8.0
+IPython==8.27.0
