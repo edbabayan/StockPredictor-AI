@@ -1,5 +1,4 @@
 import pandas as pd
-from IPython.display import display, HTML
 from duckduckgo_search import DDGS
 
 
