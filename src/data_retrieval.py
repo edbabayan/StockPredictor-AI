@@ -25,4 +25,3 @@ def get_stock_data(ticker, days=90):
     if stock_data.empty:
         return f"No stock data found for {ticker}"
     return stock_data
-

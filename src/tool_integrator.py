@@ -1,5 +1,3 @@
-from IPython.display import display, Markdown
-
 from src.live_stock_news import get_news_summary
 from src.data_retrieval import get_stock_data
 from src.stock_plot import generate_stock_graph
@@ -36,12 +34,12 @@ def process_tool_call(tool_name, tool_input):
         stock_data = get_stock_data(tool_input["ticker"])
         latest_price = stock_data['Close'].iloc[-1]
         result = f"The latest closing price for {tool_input['ticker']} is ${latest_price}"
-        display(Markdown(f"**Current Stock Price ** {result}"))
+        print(f"**Current Stock Price ** {result}")
         return result
     elif tool_name == "get_news_summary":
         result = get_news_summary(tool_input["keywords"])
-        display(Markdown("**Recent News**"))
-        display(Markdown(result))
+        print("**Recent News**")
+        print(result)
         return result
     elif tool_name == "generate_stock_graph":
         generate_stock_graph(tool_input["ticker"], tool_input.get("days", 90))
