@@ -18,22 +18,24 @@ def image_html(url):
 
 def get_news_summary(keywords, max_results=10):
     """
-    Fetches news articles based on given keywords and returns a summary of the news.
+    Fetch and summarize news articles based on specified keywords.
 
-    This function uses the DuckDuckGo Search (DDGS) API to retrieve news articles related to the specified keywords.
-    The retrieved articles are formatted into a DataFrame, including an HTML image tag for displaying images. The
-    function returns a summary string containing key information about each article.
+    This function retrieves news articles using the DuckDuckGo Search (DDGS) API based on the provided keywords.
+    The articles are then formatted into a DataFrame with relevant details such as the publication date, title,
+    source, and body. Additionally, the article images are converted into HTML image tags for display. The function
+    returns a summary string that compiles key information from each article.
 
     Args:
-        keywords (str): Keywords or search terms used to fetch news articles.
-        max_results (int, optional): The maximum number of news articles to retrieve. Defaults to 10.
+        keywords (str): The search terms used to find relevant news articles.
+        max_results (int, optional): The maximum number of articles to fetch. Defaults to 10.
 
     Returns:
-        str: A summary string containing the date, title, source, and body of each news article.
+        str: A string containing a summary of each article, including the date, title, source, and a brief body of the news.
 
     Notes:
-        - The news articles are fetched from the past week.
-        - The resulting DataFrame displays the date, image (as an HTML tag), title, source, and body of the articles.
+        - The function fetches articles from the past week.
+        - The DataFrame created includes columns for the date, an image in HTML format, title, source, and body.
+        - The returned summary is a string that consolidates essential details from the articles.
     """
     with DDGS() as ddgs:
         news_gen = ddgs.news(keywords, region="wt-wt", safesearch="off", timelimit="w", max_results=max_results)
@@ -47,13 +49,9 @@ def get_news_summary(keywords, max_results=10):
     # Select and reorder columns
     df = df[['date', 'image', 'title', 'source', 'body']]
 
-    # Display the DataFrame
-    display(HTML(df.to_html(escape=False)))
-
     # Create summary string
     summary = ""
     for _, article in df.iterrows():
         summary += f"Date: {article['date']}\nTitle: {article['title']}\nSource: {article['source']}\nSummary: {article['body']}\n\n"
 
     return summary
-
